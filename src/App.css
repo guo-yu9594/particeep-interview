@@ -4,6 +4,10 @@
   background-color: #3c00ff;
   margin: 1%;
   border-radius: 40px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  color: white;
 }
 
 .app {

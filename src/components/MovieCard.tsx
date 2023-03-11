@@ -89,7 +89,7 @@ const MovieCard = ({
   };
   const dislikeBtn: JSX.Element =
     isLiked === -1 ? (
-      <ThumbDownAltRoundedIcon sx={{ color: "#3c00ff" }} />
+      <ThumbDownAltRoundedIcon sx={{ color: "red" }} />
     ) : (
       <ThumbDownOffAltRoundedIcon sx={{ color: "#9386ba" }} />
     );
