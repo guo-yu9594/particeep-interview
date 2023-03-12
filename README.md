@@ -8,7 +8,7 @@ In the project directory, you can run:
 
 Docker production mode:
 ```bash
-sudo docker compose --build
+sudo docker compose up --build
 ```
 npm production mode:
 ```bash
