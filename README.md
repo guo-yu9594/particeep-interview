@@ -1,3 +1,7 @@
+<center>
+    <img src="public/app_screen.png">
+</center>
+
 ## Available Scripts
 
 In the project directory, you can run:
