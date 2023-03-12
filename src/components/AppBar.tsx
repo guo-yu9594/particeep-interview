@@ -1,12 +1,11 @@
-import { IconButton } from "@mui/material";
-import SortRoundedIcon from '@mui/icons-material/SortRounded';
 import Filter, { FilterProps } from "./Filter";
 
 const appBarStyle: React.CSSProperties = {
   width: '90vw',
   height: '10vh',
   backgroundColor: '#3c00ff',
-  margin: '1%',
+  margin: '1vh',
+  marginBottom: '1.5vh',
   borderRadius: '40px',
   display: 'flex',
   flexDirection: 'row',

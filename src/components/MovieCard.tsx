@@ -9,7 +9,8 @@ import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded";
 import IconButton from "@mui/material/IconButton";
 import { useState } from "react";
 import Grow from "@mui/material/Grow";
-import StackedBar, { mapStringNumber } from "./StackedBar";
+import StackedBar from "./StackedBar";
+import * as Data from "../interfaces/Data"
 import ThumbDownOffAltRoundedIcon from "@mui/icons-material/ThumbDownOffAltRounded";
 import ThumbDownAltRoundedIcon from "@mui/icons-material/ThumbDownAltRounded";
 
@@ -60,7 +61,7 @@ const cardContentStyle: React.CSSProperties = {
   position: "relative",
 };
 
-const convertForStackedBarData = (data: Movie): mapStringNumber => {
+const convertForStackedBarData = (data: Movie): Data.mapStringNumber => {
   return {
     likes: data.likes,
     dislikes: data.dislikes,
@@ -81,8 +82,7 @@ const MovieCard = ({
   displayed
 }: MovieCardProps): JSX.Element => {
   const [isLiked, setIsLiked] = useState<number>(0);
-  const [isDisliked, setIsDisliked] = useState<boolean>(false);
-  const stackedBarData: mapStringNumber = convertForStackedBarData(movie);
+  const stackedBarData: Data.mapStringNumber = convertForStackedBarData(movie);
   const likeAction = (type: string) => {
     const state = (type === "like") ? 1 : -1;
 
@@ -104,6 +104,7 @@ const MovieCard = ({
 
   return (
     <Grow
+      key={movie.title}
       in={displayed}
       style={{ transformOrigin: "0 0 0" }}
       {...(displayed ? { timeout: 1000 } : {})}

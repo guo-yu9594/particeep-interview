@@ -4,6 +4,7 @@ import AppBar from './components/AppBar';
 import List from './components/List';
 import ListPagination from './components/Pagination';
 import Movie from './interfaces/Movie'
+import QuantitySelector from "./components/QuantitySelector";
 import * as Data from './data/movie'
 
 const appStyle: React.CSSProperties = {
@@ -16,6 +17,8 @@ const appStyle: React.CSSProperties = {
 
 function App() {
   const [movies, setMovies] = useState<Movie[]>([])
+  const [nbPerPage, setNbPerPage] = useState<number>(12);
+  const [selectedPage, setSelectedPage] = useState<number>(1);
 
   useEffect(() => {
     (async () => {
@@ -27,8 +30,9 @@ function App() {
   return (
     <div style={appStyle}>
       <AppBar filterProps={{movies, setMovies}}/>
-      <List movies={movies} setMovies={setMovies} />
-      <ListPagination />
+      <QuantitySelector nbPerPage={nbPerPage} setNbPerPage={setNbPerPage} />
+      <List movies={movies} setMovies={setMovies} selectedPage={selectedPage} nbPerPage={nbPerPage} />
+      <ListPagination movies={movies} nbPerPage={nbPerPage} selectedPage={selectedPage} setSelectedPage={setSelectedPage}/>
     </div>
   );
 }

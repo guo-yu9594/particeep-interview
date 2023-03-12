@@ -8,7 +8,7 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 
 const filterMenuStyle: React.CSSProperties = {
-  boxShadow: "none",
+  boxShadow: "1px 3px 8px #e2e2e2",
   borderRadius: "25px",
 };
 
@@ -33,10 +33,7 @@ const getCategories = (movies: Movie[]): categoriesCheck[] => {
   let categories: categoriesCheck[] = [];
 
   movies.forEach((movie) => {
-    if (
-      categories.find((category) => category.name == movie.category) ==
-      undefined
-    )
+    if (categories.find((category) => category.name === movie.category) === undefined)
       if (movie.filtered !== undefined && movie.filtered === true)
         categories.push({ name: movie.category, checked: false });
       else categories.push({ name: movie.category, checked: true });
@@ -114,7 +111,7 @@ const Filter = ({ movies, setMovies }: FilterProps): JSX.Element => {
       >
         {categories.map((category) => {
           return (
-            <MenuItem sx={menuItemStyle}>
+            <MenuItem key={category.name} sx={menuItemStyle}>
               <FormControlLabel
                 control={
                   <ThemeProvider theme={theme}>

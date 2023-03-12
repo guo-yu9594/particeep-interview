@@ -3,7 +3,6 @@ import ImageListItem from "@mui/material/ImageListItem";
 import MovieCard from "./MovieCard";
 import { useEffect, useState } from "react";
 import * as Responsive from "../interfaces/Responsive";
-import * as Data from "../data/movie";
 import Movie from "../interfaces/Movie";
 
 const colRPSV: Responsive.Points = [
@@ -24,11 +23,6 @@ const colRPSV: Responsive.Points = [
     cols: 4,
   },
 ];
-
-export interface ListProps {
-  movies: Movie[];
-  setMovies: React.Dispatch<React.SetStateAction<Movie[]>>;
-}
 
 const manageLike = (
   id: string,
@@ -51,9 +45,53 @@ const manageLike = (
   return copy;
 };
 
-const List = ({ movies, setMovies }: ListProps): JSX.Element => {
-  const displayedMovies = movies.filter((m) => m.filtered === false);
+const getPages = (movies: Movie[], nbPerPage: number): Movie[][] => {
+  var matrix: Movie[][] = [];
+
+  for (let i = 0, k = -1; i < movies.length; i++) {
+      if (i % nbPerPage === 0) {
+          k++;
+          matrix[k] = [];
+      }
+      matrix[k].push(movies[i]);
+  }
+
+  return matrix;
+}
+
+const getCards = (movies: Movie[], handleDelete: Function, handleLike: Function): JSX.Element[] => {
+  if (movies === undefined)
+    return [<></>];
+  else {
+    const elements: JSX.Element[] = [];
+    movies.forEach(movie => {
+      if (movie.filtered !== undefined)
+        elements.push(
+          <ImageListItem key={movie.id} sx={{ m: "1%" }}>
+            <MovieCard
+              key={movie.title}
+              movie={movie}
+              deleteHandler={handleDelete}
+              likeHandler={handleLike}
+              displayed={!movie.filtered}
+            />
+          </ImageListItem>
+        );
+    })
+    return elements;
+  }
+}
+
+export interface ListProps {
+  movies: Movie[];
+  setMovies: React.Dispatch<React.SetStateAction<Movie[]>>;
+  selectedPage: number;
+  nbPerPage: number;
+}
+
+const List = ({ movies, setMovies, selectedPage, nbPerPage }: ListProps): JSX.Element => {
   const [nbColumns, setNbColumns] = useState(5);
+  const moviesPerPages = getPages(movies, nbPerPage)
   const handleDelete = (id: string) => {
     setMovies(movies.filter((movie) => movie.id !== id));
   };
@@ -81,23 +119,11 @@ const List = ({ movies, setMovies }: ListProps): JSX.Element => {
 
   return (
     <ImageList
-      sx={{ width: "90vw", height: "90%" }}
+      sx={{ width: "90vw", height: "90%", mb: 0 }}
       cols={nbColumns}
       rowHeight={200}
     >
-      {displayedMovies.map((item) => {
-        if (item.filtered !== undefined)
-          return (
-            <ImageListItem key={item.id} sx={{ m: "1%" }}>
-              <MovieCard
-                movie={item}
-                deleteHandler={handleDelete}
-                likeHandler={handleLike}
-                displayed={!item.filtered}
-              />
-            </ImageListItem>
-          );
-      })}
+      {getCards(moviesPerPages[selectedPage - 1], handleDelete, handleLike)}
     </ImageList>
   );
 };
