@@ -61,7 +61,7 @@ const getPages = (movies: Movie[], nbPerPage: number): Movie[][] => {
 
 const getCards = (movies: Movie[], handleDelete: Function, handleLike: Function): JSX.Element[] => {
   if (movies === undefined)
-    return [<></>];
+    return [];
   else {
     const elements: JSX.Element[] = [];
     movies.forEach(movie => {
@@ -69,7 +69,7 @@ const getCards = (movies: Movie[], handleDelete: Function, handleLike: Function)
         elements.push(
           <ImageListItem key={movie.id} sx={{ m: "1%" }}>
             <MovieCard
-              key={movie.title}
+              key={movie.id}
               movie={movie}
               deleteHandler={handleDelete}
               likeHandler={handleLike}

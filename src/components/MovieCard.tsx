@@ -104,7 +104,7 @@ const MovieCard = ({
 
   return (
     <Grow
-      key={movie.title}
+      key={movie.id}
       in={displayed}
       style={{ transformOrigin: "0 0 0" }}
       {...(displayed ? { timeout: 1000 } : {})}
