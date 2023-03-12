@@ -13,12 +13,6 @@ import StackedBar, { mapStringNumber } from "./StackedBar";
 import ThumbDownOffAltRoundedIcon from "@mui/icons-material/ThumbDownOffAltRounded";
 import ThumbDownAltRoundedIcon from "@mui/icons-material/ThumbDownAltRounded";
 
-interface MovieCardProps {
-  movie: Movie;
-  deleteHandler: Function;
-  likeHandler: Function;
-}
-
 const cardStyle: React.CSSProperties = {
   width: "100%",
   height: "100%",
@@ -73,10 +67,18 @@ const convertForStackedBarData = (data: Movie): mapStringNumber => {
   };
 };
 
+export interface MovieCardProps {
+  movie: Movie;
+  deleteHandler: Function;
+  likeHandler: Function;
+  displayed: boolean;
+}
+
 const MovieCard = ({
   movie,
   deleteHandler,
   likeHandler,
+  displayed
 }: MovieCardProps): JSX.Element => {
   const [isLiked, setIsLiked] = useState<number>(0);
   const [isDisliked, setIsDisliked] = useState<boolean>(false);
@@ -102,9 +104,9 @@ const MovieCard = ({
 
   return (
     <Grow
-      in={true}
+      in={displayed}
       style={{ transformOrigin: "0 0 0" }}
-      {...(true ? { timeout: 1000 } : {})}
+      {...(displayed ? { timeout: 1000 } : {})}
     >
       <Card sx={cardStyle}>
         <CardContent sx={cardContentStyle}>

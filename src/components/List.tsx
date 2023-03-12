@@ -30,7 +30,12 @@ export interface ListProps {
   setMovies: React.Dispatch<React.SetStateAction<Movie[]>>;
 }
 
-const manageLike = (id: string, type: string, state: number, copy: Movie[]): Movie[] => {
+const manageLike = (
+  id: string,
+  type: string,
+  state: number,
+  copy: Movie[]
+): Movie[] => {
   let idx = copy.findIndex((movie) => movie.id === id);
 
   if (type === "like") {
@@ -54,8 +59,8 @@ const List = ({ movies, setMovies }: ListProps): JSX.Element => {
   };
   const handleLike = (id: string, type: string, state: number) => {
     let copy = [...movies];
-  
-    manageLike(id, type, state, copy)
+
+    manageLike(id, type, state, copy);
     setMovies(copy);
   };
 
@@ -81,13 +86,14 @@ const List = ({ movies, setMovies }: ListProps): JSX.Element => {
       rowHeight={200}
     >
       {displayedMovies.map((item) => {
-        if (item.filtered === false)
+        if (item.filtered !== undefined)
           return (
             <ImageListItem key={item.id} sx={{ m: "1%" }}>
               <MovieCard
                 movie={item}
                 deleteHandler={handleDelete}
                 likeHandler={handleLike}
+                displayed={!item.filtered}
               />
             </ImageListItem>
           );
