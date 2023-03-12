@@ -1,6 +1,11 @@
 import Pagination from '@mui/material/Pagination';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
+const ListPaginationStyle: React.CSSProperties = {
+  marginTop: '2vh',
+  marginBottom: '2vh'
+}
+
 const theme = createTheme({
   palette: {
     primary: {
@@ -25,7 +30,7 @@ const theme = createTheme({
 const ListPagination = (): JSX.Element => {
   return (
     <ThemeProvider theme={theme}>
-      <Pagination color="primary" className="ListPagination" count={3} />
+      <Pagination color="primary" style={ListPaginationStyle} count={3} />
     </ThemeProvider>
   );
 };

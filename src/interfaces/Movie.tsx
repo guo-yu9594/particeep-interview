@@ -3,5 +3,6 @@ export default interface Movie {
   title: string,
   category: string,
   likes: number,
-  dislikes: number
+  dislikes: number,
+  filtered?: boolean
 }
