@@ -2,8 +2,6 @@
     <img src="public/app_screen.png">
 </center>
 
-Deployed web client : http://93.127.203.28:3002
-
 ## Available Scripts
 
 In the project directory, you can run:
